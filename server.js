@@ -134,6 +134,8 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
 
     if (idP != idB) {
         res.status(406).send('Not matching values in body and params!');
+    } else if (Object.keys(post).length <= 1) {
+        res.status(404).send('It needs to have at least one field!');
     } else {
         for (let index = 0; index < blogArray.length; index++) {
             if (blogArray[index].id == idP) {

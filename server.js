@@ -117,9 +117,15 @@ app.delete('/blog-posts/:id', jsonParser, (req, res) => {
         for (let index = 0; index < blogArray.length; index++) {
             if (blogArray[index].id == idP) {
                 blogArray.splice(index, 1);
-                res.status(204).send('Deleted successfully');
+                res.status(204).json({
+                    message: "Post deleted succesfully!",
+                    status: 204
+                }).send('Deleted successfully');
             } else if (index == blogArray.length) {
-                res.status(404).send('Blog doesnt exist!');
+                res.status(404).json({
+                    message: "Blog doesn't exist",
+                    status: 404
+                }).send('Blog doesnt exist!');
             }
 
         }
@@ -133,16 +139,28 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
     let post = req.body.post;
 
     if (idP != idB) {
-        res.status(406).send('Not matching values in body and params!');
+        res.status(406).json({
+            message: "Not matching values in body and params!",
+            status: 406
+        }).send('Not matching values in body and params!');
     } else if (Object.keys(post).length <= 1) {
-        res.status(404).send('It needs to have at least one field!');
+        res.status(404).json({
+            message: "The object needs to have at least one field",
+            status: 404
+        }).send('It needs to have at least one field!');
     } else {
         for (let index = 0; index < blogArray.length; index++) {
             if (blogArray[index].id == idP) {
                 blogArray[index] = Object.assign(blogArray[index], post);
-                res.status(200).send('Updated Sucessfully');
+                res.status(200).json({
+                    message: "Updated Sucessfully",
+                    status: 200
+                }).send('Updated Sucessfully');
             } else if (index == blogArray.length) {
-                res.status(404).send('Blog doesnt exist!');
+                res.status(404).json({
+                    message: "Blog doesn't exist",
+                    status: 404
+                }).send('Blog doesnt exist!');
             }
 
         }

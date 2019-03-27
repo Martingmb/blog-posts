@@ -74,7 +74,7 @@ router.delete('/blog-posts/:id', (req, res, next) => {
     if (idP != idB) {
         res.status(406).send('Not matching values in body and params!');
     } else {
-        if (blogPost.deletePostWithID(idP)) {
+        if (blogPosts.deletePostWithID(idP)) {
             res.status(204).json({
                 message: "Post deleted succesfully!",
                 status: 204

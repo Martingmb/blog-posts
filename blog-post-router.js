@@ -43,7 +43,7 @@ router.get('/blog-posts/:author', (req, res, next) => {
 
 })
 
-router.post('/blog-post', (req, res, next) => {
+router.post('/blog-posts', (req, res, next) => {
 
     let title = req.body.title;
     let content = req.body.content;

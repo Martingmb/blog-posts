@@ -57,6 +57,8 @@ const blogPosts = {
 
         blogDB.push(post);
 
+        return post;
+
     },
     deletePostWithID: function(id) {
         for (let index = 0; index < blogDB.length; index++) {

@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 const www = process.env.WWW || './';
 const bodyParser = require('body-parser');
-const router = require('./blog-post-router';)
+const router = require('./blog-post-router');
 let jsonParser = bodyParser.json();
 
 app.use(express.static(www));

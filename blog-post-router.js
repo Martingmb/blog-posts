@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { blogPost } = require('./blog-post-model');
+const { blogPosts } = require('./blog-post-model');
 
 
-router.get('/blog-posts', jsonParser, (req, res, next) => {
+router.get('/blog-posts', (req, res, next) => {
     res.status(200).json({
         message: "Succesfully sent the list of blogs",
         status: 200,
-        posts: blogPost.get()
+        posts: blogPosts.get()
     });
     return next();
 })
 
-router.get('/blog-posts/:author', jsonParser, (req, res, next) => {
+router.get('/blog-posts/:author', (req, res, next) => {
     let author = req.params.author;
 
     if (author == "" || author == undefined) {
@@ -23,7 +23,7 @@ router.get('/blog-posts/:author', jsonParser, (req, res, next) => {
         return next();
     }
 
-    let authorPosts = blogPost.getAuthorBlogPost(author);
+    let authorPosts = blogPosts.getAuthorBlogPost(author);
 
     if (authorPosts.length > 0) {
         res.status(200).json({
@@ -43,7 +43,7 @@ router.get('/blog-posts/:author', jsonParser, (req, res, next) => {
 
 })
 
-router.post('/blog-post', jsonParser, (req, res, next) => {
+router.post('/blog-post', (req, res, next) => {
 
     let title = req.body.title;
     let content = req.body.content;
@@ -60,13 +60,13 @@ router.post('/blog-post', jsonParser, (req, res, next) => {
     res.status(201).json({
         message: "Succesfully added new post",
         status: 201,
-        blogs: blogPost.addBlogPost(title, content, author)
+        blogs: blogPosts.addBlogPost(title, content, author)
     });
     return next();
 
 })
 
-router.delete('/blog-posts/:id', jsonParser, (req, res, next) => {
+router.delete('/blog-posts/:id', (req, res, next) => {
     let idP = req.params.id;
     let idB = req.body.id;
 
@@ -91,7 +91,7 @@ router.delete('/blog-posts/:id', jsonParser, (req, res, next) => {
 
 })
 
-router.put('/blog-posts/:id', jsonParser, (req, res, next) => {
+router.put('/blog-posts/:id', (req, res, next) => {
     let idP = req.params.id;
     let idB = req.body.post.id;
     let post = req.body.post;
@@ -110,7 +110,7 @@ router.put('/blog-posts/:id', jsonParser, (req, res, next) => {
         return next();
     } else {
 
-        if (blogPost.updateBlogWithID(idP, post)) {
+        if (blogPosts.updateBlogWithID(idP, post)) {
             res.status(200).json({
                 message: "Updated Sucessfully",
                 status: 200
